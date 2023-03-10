@@ -1,0 +1,30 @@
+@include "16bitDirectMappedCache.wasm"
+
+.data MyData : DATAMEM
+0d0:     WORD base
+
+.data MyRegisters  : REGISTERS
+0x0: WORD shift  4             # bit shift multiplier
+0x1: WORD width  1          # width (and height) of 2D matrix
+0x2: WORD x                 
+0x3: WORD y
+0x4: WORD addr                 # address to write data to
+0x5: WORD val                    # value to write to address
+
+.code MyCode  : HARVARD, MyData, MyRegisters
+          SHL   width, width,   shift      # width= 1 * 2-to-power-shift    
+          LOADI x,     0
+loopx:    
+          LOADI y,     0
+loopy:
+          SHL   addr,  y,       shift      
+          ADD   addr,  addr,    x          # addr = y * 2-to-power-shift + x
+          OR    val,   x,       y                 # just computing some value without any meaning
+          SW    val,   base,    addr       # write value to address
+
+          ADDI  x,     x,       1
+          BNE   x,     width,   loopx
+          ADDI  y,     y,       1
+          BNE   y,     width,   loopy
+
+HALT

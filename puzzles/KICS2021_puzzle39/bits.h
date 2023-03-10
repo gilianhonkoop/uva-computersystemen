@@ -1,0 +1,12 @@
+int bitAnd(int, int);
+int test_bitAnd(int, int);
+int upperBits(int);
+int test_upperBits(int);
+int fitsBits(int, int);
+int test_fitsBits(int, int);
+int isGreater(int, int);
+int test_isGreater(int, int);
+int bitCount(int);
+int test_bitCount(int);
+int float_f2i(unsigned);
+int test_float_f2i(unsigned);

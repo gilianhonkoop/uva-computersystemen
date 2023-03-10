@@ -1,0 +1,11 @@
+gdb bomb
+b phase_1
+gdb run
+
+layout asm
+info register
+-p
+-print
+
+----------------------
+phase 1 : 0x400c90            4197520
